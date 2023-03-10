@@ -15,6 +15,9 @@ app.post('/api/v1/roles', (req, res) => { // CREATE: Add a new role
     const role = req.body;
     roles.push(role);
     res.send(`Role ${role.name} added successfully`);
+     //show roles in console
+    console.log(roles.length);
+    console.log(Object.values(roles));
 });
 
 
@@ -46,7 +49,7 @@ app.delete('/api/v1/roles/:name', (req, res) => {// DELETE: Delete a role by nam
     }
 });
 
-app.get('/api/v1/roles/:index', (req, res) => { //Read: get a rle by index
+app.get('/api/v1/roles/:index', (req, res) => { //Read: get a role by index
     const {index} = req.params;
     const role = roles[index];
     if (role) {
@@ -58,7 +61,7 @@ app.get('/api/v1/roles/:index', (req, res) => { //Read: get a rle by index
 
 app.listen(port, function(error) {
     if(error) {
-        console.log(`Something wnet wrong`, error) 
+        console.log(`Something went wrong`, error) 
     } else {
         console.log(`Server is listening on port`, + port)
     }
