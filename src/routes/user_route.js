@@ -1,17 +1,17 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const app = express();
+const router = express.Router();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 // array to store user data
 let users = [];
 
-app.post("/users", (req, res) => {
-    const { id, name, email } = req.body;
-    const newUser = { id, name, email };
+router.post("/users", (req, res) => {
+    const { id, name, role, description, email } = req.body;
+    const newUser = { id, name, role, description, email };
     users.push(newUser);
     res.json(newUser);
     //show users in console
@@ -20,12 +20,12 @@ app.post("/users", (req, res) => {
 });
 
 // endpoint to read all users
-app.get('/users', (req, res) => {
+router.get('/users', (req, res) => {
     res.json(users);
 });
 
 //endpoint to read a single user by ID
-app.get('/users/:id', (req, res) => {
+router.get('/users/:id', (req, res) => {
     const user = users.find(u => u.id === parseInt(req.params.id));
     if (!user) {
         res.status(404).json({ message: 'User not found' });
@@ -35,7 +35,7 @@ app.get('/users/:id', (req, res) => {
 });
 
 // endpoint to update a user by ID
-app.put('/users/:id', (req, res) => {
+router.put('/users/:id', (req, res) => {
     const userIndex = users.findIndex(u => u.id === parseInt(req.params.id));
     if (userIndex === -1) {
         res.status(404).json({ message: 'User not found' });
@@ -46,7 +46,7 @@ app.put('/users/:id', (req, res) => {
 });
 
 // endpoint to delete a user by ID
-app.delete('/users/:id', (req, res) => {
+router.delete('/users/:id', (req, res) => {
     const userIndex = users.findIndex(u => u.id === parseInt(req.params.id));
     if (userIndex === -1) {
         res.status(404).json({ message: 'User not found' });
@@ -56,11 +56,9 @@ app.delete('/users/:id', (req, res) => {
     }
 });
 
-//show users in console
-console.log(users.length);
-console.log(Object.values(users));
 
-// Start the server
-app.listen(8080, () => {
-    console.log("Server started on port 8080");
-});
+
+
+
+
+module.exports = router;
