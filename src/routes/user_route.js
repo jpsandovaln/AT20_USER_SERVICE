@@ -1,38 +1,43 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
+const express = require("express");
 const router = express.Router();
+const userController = require('../controllers/user_controller');
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
+//to create an user
+// router.post("/users", (req, res) => {
+//     const { id, name, role, description, email } = req.body;
+//     const newUser = { id, name, role, description, email };
+//     users.push(newUser);
+//     res.json(newUser);
+//     //show users in console
+//     console.log(users.length);
+//     console.log(Object.values(users));
+// });
 
-// array to store user data
-let users = [];
-
-router.post("/users", (req, res) => {
-    const { id, name, role, description, email } = req.body;
-    const newUser = { id, name, role, description, email };
-    users.push(newUser);
-    res.json(newUser);
-    //show users in console
-    console.log(users.length);
-    console.log(Object.values(users));
-});
+router.post(//first try to post
+    '/users',
+    userController.insertUser
+);
 
 // endpoint to read all users
-router.get('/users', (req, res) => {
-    res.json(users);
-});
+// router.get('/users', (req, res) => {
+//     res.json(users);
+// });
+////first try to get all users
+router.get(
+    '/users',
+    userController.getAllUsers
+);
+
 
 //endpoint to read a single user by ID
-router.get('/users/:id', (req, res) => {
-    const user = users.find(u => u.id === parseInt(req.params.id));
-    if (!user) {
-        res.status(404).json({ message: 'User not found' });
-    } else {
-        res.json(user);
-    }
-});
+// router.get('/users/:id', (req, res) => {
+//     const user = users.find(u => u.id === parseInt(req.params.id));
+//     if (!user) {
+//         res.status(404).json({ message: 'User not found' });
+//     } else {
+//         res.json(user);
+//     }
+// });
 
 // endpoint to update a user by ID
 router.put('/users/:id', (req, res) => {
@@ -55,10 +60,5 @@ router.delete('/users/:id', (req, res) => {
         res.json(deletedUser[0]);
     }
 });
-
-
-
-
-
 
 module.exports = router;
