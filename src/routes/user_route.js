@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/user_controller');
+const UserController = require('../controllers/user_controller');
 
 //to create an user
 // router.post("/users", (req, res) => {
@@ -12,6 +12,7 @@ const userController = require('../controllers/user_controller');
 //     console.log(users.length);
 //     console.log(Object.values(users));
 // });
+const userController = new UserController();
 
 router.post(//first try to post
     '/users',
@@ -22,6 +23,7 @@ router.post(//first try to post
 // router.get('/users', (req, res) => {
 //     res.json(users);
 // });
+
 ////first try to get all users
 router.get(
     '/users',

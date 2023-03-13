@@ -1,10 +1,8 @@
 const express = require("express");
 const dotenv = require('dotenv');
-
 const userRouter = require('./routes/user_route');
 const bodyParser = require('body-parser');
-
-const dbConnectMongo = require("./configs/dbMongo");
+const MongoDb = require('./configs/dbMongo');
 
 const app = express();
 dotenv.config();
@@ -21,7 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1/user', userRouter);
 
 //Db connection
-dbConnectMongo();
+const mongoDb = new MongoDb();
+mongoDb.dbConnectMongo();
 
 // Start the server
 const port = process.env.PORT || 9090; 
