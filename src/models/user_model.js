@@ -8,11 +8,10 @@ const userSchema = new mongoose.Schema(
         name:{
             type: String,
         },  
-        roles:[{
+        roles:{
             type: [mongoose.Schema.Types.ObjectId],
-            ref: 'rol',
-            autopopulate: true
-        }],
+            ref: 'rol'
+        },
         email:{
             type: String,
             unique: true
@@ -23,6 +22,5 @@ const userSchema = new mongoose.Schema(
         versionKey:false
     }
 );
-userSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model('user', userSchema);

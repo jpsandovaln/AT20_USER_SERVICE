@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 //create another schema
 const roleSchema = new mongoose.Schema(
     {
-        user:[{
+        user:{
             type: [mongoose.Types.ObjectId],
-            ref: 'user',
-            autopopulate: true
-        }],
+            ref: 'user'
+        },
         name:{
             type: String,
         },
@@ -19,5 +18,4 @@ const roleSchema = new mongoose.Schema(
         versionKey:false
     }
 );
-roleSchema.plugin(require('mongoose-autopopulate'));
 module.exports = mongoose.model('rol', roleSchema);

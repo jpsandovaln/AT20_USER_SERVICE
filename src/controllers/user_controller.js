@@ -9,14 +9,20 @@ class UserController{
     };
 
     getAllUsers = async(req, res) => {
-        const users = await model.find();
+        const users = await model.find().populate('roles',{
+            name: 1,
+            description: 1
+        });
         res.json(users);
         console.log(users);
     };
 
     getUserById = async (req, res) => {
         const data = req.params.id;
-        const user = await model.findOne({"id": data});
+        const user = await model.findOne({"id": data}).populate('roles',{
+            name: 1,
+            description: 1
+        });;
         if (!user) {
             res.status(404).json({ message: 'User not found' });
         } else {

@@ -8,14 +8,22 @@ class RoleController{
     };
 
     getAllRoles = async(req, res) => {
-        const roles = await model.find().populate('user');
+        const roles = await model.find().populate('user',{
+            id:1,
+            name:1,
+            email:1
+        });
         res.json(roles);
         console.log(roles);
     };
 
     getRoleByName = async(req, res) => {
         const data = req.params.name;
-        const role = await model.findOne({"name": data});
+        const role = await model.findOne({"name": data}).populate('user',{
+            id:1,
+            name:1,
+            email:1
+        });
         if (!role) {
             res.status(404).json({ message: 'role not found' });
         } else {
