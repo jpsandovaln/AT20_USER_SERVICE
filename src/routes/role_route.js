@@ -1,42 +1,58 @@
+/*
+@node_command.js
+Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
+Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
+All rights reserved
+This software is the confidential and proprietary information of
+Jalasoft, Confidential Information You shall not
+disclose such Confidential Information and shall use it only in
+accordance with the terms of the license agreement you entered into
+with Jalasoft
+*/
 const express = require('express');
 const router = express.Router();
 const RoleController = require('../controllers/role_controller');
-
 const roleController = new RoleController();
 
-//endpoint to create a rol
+//Endpoint to create a rol
 router.post(
     '/roles',
     roleController.insertRole
 );
 
-// endpoint to get all roles
+// Endpoint to get all roles
 router.get(
     '/roles',
     roleController.getAllRoles
 );
 
-//endpoint to get role by name
+//Endpoint to get role by name
 router.get(
     '/roles/:name',
     roleController.getRoleByName
 );
 
-//endpoint to put a role by name
+//Endpoint to put a role by name
 router.put(
     '/roles/:name',
     roleController.updateRoleByName
 );
 
-//endpoint to delete a role by name
+//Endpoint to delete a role by name
 router.delete(
     '/roles/:name',
     roleController.deleteRoleByName
 );
 
-//endpoint to assign a role a user by ID
+//Endpoint to assign a role a user by name
 router.put(
-    '/roles/assign/:id',
+    '/roles/assign/:name',
     roleController.assignUserToRole
+);
+
+//Endpoint to remove a role to user by name
+router.put(
+    '/roles/remove/:name',
+    roleController.removeUserToRole
 );
 module.exports = router;

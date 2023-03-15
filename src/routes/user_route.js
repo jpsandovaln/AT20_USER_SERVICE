@@ -1,42 +1,58 @@
+/*
+@node_command.js
+Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
+Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
+All rights reserved
+This software is the confidential and proprietary information of
+Jalasoft, Confidential Information You shall not
+disclose such Confidential Information and shall use it only in
+accordance with the terms of the license agreement you entered into
+with Jalasoft
+*/
 const express = require("express");
 const router = express.Router();
 const UserController = require('../controllers/user_controller');
-
 const userController = new UserController();
 
-//endpoint to create an user
+//Endpoint to create an user
 router.post(
     '/users',
     userController.insertUser
 );
 
-// endpoint to read all users
+// Endpoint to read all users
 router.get(
     '/users',
     userController.getAllUsers
 );
 
-//endpoint to read a single user by ID
+//Endpoint to read a single user by ID
 router.get(
     '/users/:id',
     userController.getUserById
 );
- //endpoint to update an user by ID
+ //Endpoint to update an user by ID
 router.put(
     '/users/:id',
     userController.updateUser
 );
 
-// endpoint to delete a user by ID
+// Endpoint to delete a user by ID
 router.delete(
     '/users/:id',
     userController.deleteUserById
 );
 
-//endpoint to assign a role a user by ID
+//Endpoint to assign a role a user by ID
 router.put(
     '/users/assign/:id',
     userController.assignRoleToUser
+);
+
+//Endpoint to remove a role to assign a user by ID
+router.put(
+    '/users/remove/:id',
+    userController.removeRoleToUser
 );
 
 
