@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require('dotenv');
 const userRouter = require('./routes/user_route');
+const roleRouter = require('./routes/role_route');
 const bodyParser = require('body-parser');
 const MongoDb = require('./configs/dbMongo');
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //routes
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/role', roleRouter);
 
 //Db connection
 const mongoDb = new MongoDb();
