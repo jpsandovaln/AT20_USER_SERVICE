@@ -54,6 +54,4 @@ router.put(
     '/users/remove/:id',
     userController.removeRoleToUser
 );
-
-
 module.exports = router;
