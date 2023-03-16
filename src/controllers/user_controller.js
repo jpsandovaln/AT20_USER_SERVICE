@@ -12,14 +12,14 @@ with Jalasoft
 const model = require('../models/user_model');
 
 class UserController{
-    //Method for create an user and insert in mongo db
+    //Create an user and insert in mongo db
     insertUser (req, res) { 
         const user = req.body;
         model.create(user);
         res.json(user);
     };
 
-    //Method for get all users from mongo db
+    //Get all users from mongo db
     getAllUsers = async(req, res) => {
         const users = await model.find().populate('roles',{
             name: 1,
@@ -28,7 +28,7 @@ class UserController{
         res.json(users);
     };
 
-    //Method for get a user by Id from mongo db
+    //Get a user by Id from mongo db
     getUserById = async (req, res) => {
         const data = req.params.id;
         const user = await model.findOne({"id": data}).populate('roles',{
@@ -42,7 +42,7 @@ class UserController{
         }
     }
 
-    //Method for update an user by Id
+    //Update an user by Id
     updateUser = async (req, res) => {
         const id  = req.params;
         const user = await model.findOneAndUpdate(id, req.body)
@@ -53,7 +53,7 @@ class UserController{
         }
     }
 
-    //Method for delete an user by Id from mongo db
+    //Delete an user by Id from mongo db
     deleteUserById = async (req, res) => {
         const id  = req.params;
         const user = await model.findOneAndDelete(id)
@@ -64,7 +64,7 @@ class UserController{
         }
     }
 
-    //Method for assign a role to user by Id
+    //Assign a role to user by Id
     assignRoleToUser = async (req, res) => {
         const id  = req.params;
         const {roles} = req.body;
@@ -76,7 +76,7 @@ class UserController{
         }
     }
     
-    //Method for remove role to user by Id    
+    //Remove role to user by Id    
     removeRoleToUser = async (req, res) => {
         const id  = req.params;
         const {roles} = req.body;

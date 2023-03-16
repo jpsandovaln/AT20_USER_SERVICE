@@ -12,14 +12,14 @@ with Jalasoft
 const model = require('../models/role_model');
 
 class RoleController{
-    //Method for create a role and insert in mongo db
+    //Create a role and insert in mongo db
     insertRole (req, res) { 
         const role = req.body;
         model.create(role);
         res.json(role);
     };
 
-    //Method for get all roles from mongo db
+    //Get all roles from mongo db
     getAllRoles = async(req, res) => {
         const roles = await model.find().populate('user',{
             id:1,
@@ -29,7 +29,7 @@ class RoleController{
         res.json(roles);
     };
     
-    //Method for get a role by name from mongo db
+    //Get a role by name from mongo db
     getRoleByName = async (req, res) => {
         const data = req.params.name;
         const role = await model.findOne({"name": data}).populate('user',{
@@ -44,7 +44,7 @@ class RoleController{
         }
     }
 
-    //Method for update a role by name
+    //Update a role by name
     updateRoleByName = async (req, res) => {
         const name = req.params;
         const role = await model.findOneAndUpdate(name, req.body)
@@ -55,7 +55,7 @@ class RoleController{
         }
     }
 
-    //Method for delete a rol by name from mongo db
+    //Delete a rol by name from mongo db
     deleteRoleByName = async (req, res) => {
         const name = req.params;
         const role = await model.findOneAndDelete(name)
@@ -66,7 +66,7 @@ class RoleController{
         }
     }
 
-    //Method for assign an user to role by name
+    //Assign an user to role by name
     assignUserToRole = async (req, res) => {
         const name = req.params;
         const {user} = req.body;
@@ -78,7 +78,7 @@ class RoleController{
         }
     }
 
-    //Method for remove an user to role by name   
+    //Remove an user to role by name   
     removeUserToRole = async (req, res) => {
         const name  = req.params;
         const {user} = req.body;

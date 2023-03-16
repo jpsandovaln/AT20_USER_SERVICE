@@ -10,7 +10,7 @@ accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
 const mongoose = require('mongoose');
-//Create another schema
+//Create user schema
 const userSchema = new mongoose.Schema (
     {
         id: { 
