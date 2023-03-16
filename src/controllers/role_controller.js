@@ -46,7 +46,7 @@ class RoleController{
 
     //Method for update a role by name
     updateRoleByName = async (req, res) => {
-        const { name } = req.params;
+        const name = req.params;
         const role = await model.findOneAndUpdate(name, req.body)
         if (!role) {
             res.status(404).json({ message: 'role not found' });
@@ -57,7 +57,7 @@ class RoleController{
 
     //Method for delete a rol by name from mongo db
     deleteRoleByName = async (req, res) => {
-        const { name } = req.params;
+        const name = req.params;
         const role = await model.findOneAndDelete(name)
         if (!role) {
             res.status(404).json({ message: 'role not found' });

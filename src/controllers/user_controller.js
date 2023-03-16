@@ -44,7 +44,7 @@ class UserController{
 
     //Method for update an user by Id
     updateUser = async (req, res) => {
-        const { id } = req.params;
+        const id  = req.params;
         const user = await model.findOneAndUpdate(id, req.body)
         if (!user) {
             res.status(404).json({ message: 'user not found' });
