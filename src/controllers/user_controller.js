@@ -49,7 +49,7 @@ class UserController{
         if (!user) {
             res.status(404).json({ message: 'user not found' });
         } else {
-            res.send(`User ${id} updated successfully`);
+            res.send(`User was updated successfully`);
         }
     }
 
@@ -60,7 +60,7 @@ class UserController{
         if (!user) {
             res.status(404).json({ message: 'user not found' });
         } else {
-            res.send(`User ${id} was delete successfully`);
+            res.send(`User was delete successfully`);
         }
     }
 

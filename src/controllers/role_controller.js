@@ -51,7 +51,7 @@ class RoleController{
         if (!role) {
             res.status(404).json({ message: 'role not found' });
         } else {
-            res.send(`Role ${name} updated successfully`);
+            res.send(`Role was updated successfully`);
         }
     }
 
@@ -62,7 +62,7 @@ class RoleController{
         if (!role) {
             res.status(404).json({ message: 'role not found' });
         } else {
-            res.send(`Role ${name} was delete successfully`);
+            res.send(`Role was delete successfully`);
         }
     }
 
