@@ -20,7 +20,7 @@ const app = express();
 dotenv.config();
 
 app.get('/api/v1/', (req, res) => {
-    res.send('hello from the home');
+    res.send('hello from home');
 });
 
 //Middlewares for the inputs from body data

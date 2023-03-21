@@ -16,9 +16,14 @@ const userController = new UserController();
 
 //Endpoint to create an user
 router.post(
-    '/users',
-    userController.insertUser
+    '/register',
+    userController.registerUser
 );
+
+router.post(
+    '/login',
+    userController.login
+    );
 
 // Endpoint to read all users
 router.get(

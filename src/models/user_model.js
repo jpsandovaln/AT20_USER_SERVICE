@@ -10,14 +10,17 @@ accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
 const mongoose = require('mongoose');
+
 //Create user schema
 const userSchema = new mongoose.Schema (
     {
-        id: { 
-            type: Number,
-        },
-        name:{
+        uuid: { 
             type: String,
+            unique: true
+        },
+        userName:{
+            type: String,
+            unique: true
         },  
         roles:{
             type: [mongoose.Schema.Types.ObjectId],
@@ -26,7 +29,11 @@ const userSchema = new mongoose.Schema (
         email:{
             type: String,
             unique: true
-        }
+        },
+        password: {
+                type: String,
+                //unique: true
+        },
     },
     {
         timestamps:true,
