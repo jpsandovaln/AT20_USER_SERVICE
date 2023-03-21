@@ -9,7 +9,7 @@ disclose such Confidential Information and shall use it only in
 accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
-const express = require("express");
+const express = require('express');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/user_route');
 const roleRouter = require('./routes/role_route');
@@ -36,7 +36,7 @@ const mongoDb = new MongoDb();
 mongoDb.dbConnectMongo();
 
 // Start the server
-const port = process.env.PORT || 9090; 
+const port = process.env.PORT || 9090;
 app.listen(port, () => {
     console.log('The app is online');
 });

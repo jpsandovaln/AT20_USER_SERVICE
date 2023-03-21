@@ -9,7 +9,7 @@ disclose such Confidential Information and shall use it only in
 accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/user_controller');
 const userController = new UserController();
@@ -23,7 +23,7 @@ router.post(
 router.post(
     '/login',
     userController.login
-    );
+);
 
 // Endpoint to read all users
 router.get(
@@ -36,7 +36,7 @@ router.get(
     '/users/:id',
     userController.getUserById
 );
- //Endpoint to update an user by ID
+//Endpoint to update an user by ID
 router.put(
     '/users/:id',
     userController.updateUser

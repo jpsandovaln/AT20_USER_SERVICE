@@ -16,7 +16,7 @@ class MongoDb {
     //Method for connection with data base mongo db
     dbConnectMongo = async () => {
         try {
-                await mongoose.connect(uri ,{
+            await mongoose.connect(uri, {
                 keepAlive : true,
                 useNewUrlParser: true,
                 useUnifiedTopology: true

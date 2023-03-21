@@ -14,14 +14,14 @@ const mongoose = require('mongoose');
 //Create user schema
 const userSchema = new mongoose.Schema (
     {
-        uuid: { 
+        uuid: {
             type: String,
             unique: true
         },
         userName:{
             type: String,
             unique: true
-        },  
+        },
         roles:{
             type: [mongoose.Schema.Types.ObjectId],
             ref: 'rol'
@@ -31,8 +31,7 @@ const userSchema = new mongoose.Schema (
             unique: true
         },
         password: {
-                type: String,
-                //unique: true
+            type: String,
         },
     },
     {
