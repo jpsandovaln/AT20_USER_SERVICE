@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@personalInfoModel.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -10,18 +10,28 @@ accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
 const mongoose = require ('mongoose');
-//Create rol schema
-const roleSchema = new mongoose.Schema (
+
+//Creates personal Info schema
+const personalInfoSchema =  new mongoose.Schema (
     {
-        user:{
-            type: [mongoose.Types.ObjectId],
-            ref: 'user'
+        // user:{
+        //     type: [mongoose.Types.ObjectId],
+        //     ref: 'user'
+        // },
+        phone: {
+            type: Number,
         },
-        role:{
+        country:{
             type: String,
         },
-        description:{
+        city:{
             type: String,
+        },
+        age: {
+            type: Number,
+        },
+        description: {
+            type: String
         }
     },
     {
@@ -29,4 +39,4 @@ const roleSchema = new mongoose.Schema (
         versionKey:false
     }
 );
-module.exports = mongoose.model('rol', roleSchema);
+module.exports = mongoose.model('info', personalInfoSchema);

@@ -25,6 +25,15 @@ router.post(
     userController.login
 );
 
+router.put(
+    '/updatePassword/:id',
+    userController.updatePassword
+);
+
+router.put(
+    '/addInfo/:id',
+    userController.addPersonalInfo
+);
 // Endpoint to read all users
 router.get(
     '/users',
