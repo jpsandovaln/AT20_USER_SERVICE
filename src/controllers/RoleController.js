@@ -12,7 +12,7 @@ with Jalasoft
 const roleModel = require('../models/RoleModel');
 
 class RoleController {
-    //Create a role and insert in mongo db
+    //Creates a role and insert in mongo db
     insertRole = async (req, res) => {
         const role = req.body;
         const getRole = await roleModel.findOne({'role':role.role});
@@ -26,13 +26,13 @@ class RoleController {
         }
     };
 
-    //Get all roles from mongo db
+    //Gets all roles from mongo db
     getAllRoles = async(req, res) => {
         const roles = await roleModel.find();
         res.json(roles);
     };
 
-    //Get a role by name from mongo db
+    //Gets a role by name from mongo db
     getRoleByName = async (req, res) => {
         const data = req.params.name;
         const role = await roleModel.findOne({'name': data});
@@ -43,7 +43,7 @@ class RoleController {
         }
     };
 
-    //Update a role by name
+    //Updates a role by name
     updateRoleByName = async (req, res) => {
         const name = req.params;
         const role = await roleModel.findOneAndUpdate(name, req.body);
@@ -54,7 +54,7 @@ class RoleController {
         }
     };
 
-    //Delete a rol by name from mongo db
+    //Deletes a rol by name from mongo db
     deleteRoleByName = async (req, res) => {
         const name = req.params;
         const role = await roleModel.findOneAndDelete(name);

@@ -43,7 +43,7 @@ router.get(
 );
 //Endpoint to update an user by ID
 router.put(
-    '/users/:id',
+    '/update/:id',
     userController.updateUser
 );
 
@@ -60,7 +60,7 @@ router.put(
 );
 
 //Endpoint to remove a role to assign a user by ID
-router.put(
+router.delete(
     '/users/remove/:id',
     userController.removeRoleToUser
 );
