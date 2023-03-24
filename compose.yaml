@@ -1,5 +1,7 @@
+#The version of the docker-compose file.
 version: '3.9'
 
+#Creating a mongo container and setting the root user and password.
 services:
   mongo:
     image: mongo
@@ -10,6 +12,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     command: mongod --quiet --logpath /dev/null
 
+#This is creating a backend container and setting the port to 5000.
   backend:
     build: ./
     ports:
