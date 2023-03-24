@@ -86,12 +86,15 @@ class UserController {
                 await userModel.findOneAndUpdate({'globalID': globalID}, {'password':newHashedPassword});
                 userLogin.firstPassword = undefined;
                 await userLogin.save();
-                res.status(200).send({ message: 'Password was updated successfully' });
+                res.status(200).send({ "message": 'Password was updated successfully',
+                                        "info":userLogin });
             } else {
                 if (await bcrypt.compare(userPassword, userLogin.password)) {
                     const newHashedPassword = await bcrypt.hash(newPassword, 10);
                     await userModel.findOneAndUpdate({'globalID': globalID}, {'password':newHashedPassword});
-                    res.status(200).json({ message: 'Password was updated successfully' });
+                    res.status(200).json({ 
+                        "message": 'Password was updated successfully',
+                         "info":userLogin});
                 } else {
                     res.status(404).json({ message: 'Wrong password' });
                 }
@@ -141,7 +144,8 @@ class UserController {
             user.phone = newInfo.phone || user.phone;
             user.city = newInfo.email || user.email;
             await user.save();
-            res.json({"message":`User ${user.userName} info updated successfully`} );
+            res.json({"message":`User ${user.userName} info updated successfully`,
+                        "info": user});
             
         }
     };
@@ -169,6 +173,7 @@ class UserController {
             await userModel.findOneAndUpdate({'globalID': globalID}, {$push:{role:role}});
             res.json({
                 "message":`User ${user.userName} updated with a role successfully`,
+                "info":user
                 });
         }
     };
