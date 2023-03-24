@@ -1,5 +1,5 @@
 /*
-@personalInfoModel.js
+@PersonalInfoModel.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -14,17 +14,16 @@ const mongoose = require ('mongoose');
 //Creates personal Info schema
 const personalInfoSchema =  new mongoose.Schema (
     {
-        // user:{
-        //     type: [mongoose.Types.ObjectId],
-        //     ref: 'user'
-        // },
-        phone: {
-            type: Number,
+        firstName: {
+            typre: String,
         },
-        country:{
+        lastName: {
+            typre: String,
+        },
+        country: {
             type: String,
         },
-        city:{
+        city: {
             type: String,
         },
         age: {
@@ -39,4 +38,4 @@ const personalInfoSchema =  new mongoose.Schema (
         versionKey:false
     }
 );
-module.exports = mongoose.model('info', personalInfoSchema);
+module.exports = mongoose.model('personalInfo', personalInfoSchema);

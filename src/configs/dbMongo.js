@@ -9,6 +9,7 @@ disclose such Confidential Information and shall use it only in
 accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
+const loggerService = require('../../loggerService.js');
 const mongoose = require('mongoose');
 const uri = 'mongodb://127.0.0.1:27017/crudMongo';
 
@@ -21,9 +22,9 @@ class MongoDb {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
-            console.log('Db connected to successfully');
+            loggerService.info('connected to DB successfully');
         } catch (error) {
-            console.error(error);
+            loggerService.error(error);
         }
     };
 }

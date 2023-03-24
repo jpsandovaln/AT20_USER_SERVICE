@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@index.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -11,10 +11,12 @@ with Jalasoft
 */
 const express = require('express');
 const dotenv = require('dotenv');
-const userRouter = require('./routes/user_route');
-const roleRouter = require('./routes/role_route');
+const userRouter = require('./routes/UserRoute');
+const roleRouter = require('./routes/RoleRoute');
+const personalInfoRouter = require('./routes/PersonalInfoRoute.js');
 const bodyParser = require('body-parser');
 const MongoDb = require('./configs/dbMongo');
+const loggerService = require('../loggerService.js');
 
 const app = express();
 dotenv.config();
@@ -30,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Routes
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/role', roleRouter);
+app.use('/api/v1/personalInfo', personalInfoRouter);
 
 //Db connection
 const mongoDb = new MongoDb();
@@ -38,5 +41,5 @@ mongoDb.dbConnectMongo();
 // Start the server
 const port = process.env.PORT || 9090;
 app.listen(port, () => {
-    console.log('The app is online');
+    loggerService.info('The app is online');
 });

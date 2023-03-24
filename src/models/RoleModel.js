@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@RoleModel.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -13,12 +13,9 @@ const mongoose = require ('mongoose');
 //Create rol schema
 const roleSchema = new mongoose.Schema (
     {
-        user:{
-            type: [mongoose.Types.ObjectId],
-            ref: 'user'
-        },
         role:{
             type: String,
+            unique: true
         },
         description:{
             type: String,
@@ -29,4 +26,4 @@ const roleSchema = new mongoose.Schema (
         versionKey:false
     }
 );
-module.exports = mongoose.model('rol', roleSchema);
+module.exports = mongoose.model('role', roleSchema);

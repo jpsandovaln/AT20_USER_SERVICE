@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@roleRoute.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -11,7 +11,7 @@ with Jalasoft
 */
 const express = require('express');
 const router = express.Router();
-const RoleController = require('../controllers/role_controller');
+const RoleController = require('../controllers/RoleController');
 const roleController = new RoleController();
 
 //Endpoint to create a rol
