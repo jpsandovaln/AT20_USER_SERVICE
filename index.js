@@ -40,29 +40,6 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
-app.get('/api/users', async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.json(users);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-app.delete('/api/users/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  try {
-    const deletedUser = await User.findByIdAndDelete(userId);
-    if (!deletedUser) {
-      return res.status(404).send({ message: 'User not found' });
-    }
-    res.send(deletedUser);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: 'Internal server error' });
-  }
-});
 
 //Routes
 app.use('/api/v1/user', userRouter);

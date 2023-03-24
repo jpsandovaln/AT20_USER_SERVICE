@@ -13,10 +13,16 @@ const model = require('../models/user_model');
 
 class UserController{
     //Create an user and insert in mongo db
-    insertUser (req, res) { 
-        const user = req.body;
-        model.create(user);
-        res.json(user);
+    insertUser = async (req, res) => { 
+        const { id, name, email } = req.body;
+        try {
+          const user = await User.create({ id, name, email });
+          res.json(user);
+          console.log(user);
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ error: 'Server error' });
+        }
     };
 
     //Get all users from mongo db
