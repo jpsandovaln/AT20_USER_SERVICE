@@ -16,7 +16,7 @@ const { v4: uuid } = require('uuid');
 const bcrypt = require('bcrypt');
 
 class UserController {
-    //Create a user and insert it in mongo db
+    //Creates a user and registers it in mongo db
     registerUser = async (req, res) => {
         const newUser = req.body;
         const userName = newUser.userName;
@@ -86,12 +86,15 @@ class UserController {
                 await userModel.findOneAndUpdate({'globalID': globalID}, {'password':newHashedPassword});
                 userLogin.firstPassword = undefined;
                 await userLogin.save();
-                res.status(200).send({ message: 'Password was updated successfully' });
+                res.status(200).send({ "message": 'Password was updated successfully',
+                                        "info":userLogin });
             } else {
                 if (await bcrypt.compare(userPassword, userLogin.password)) {
                     const newHashedPassword = await bcrypt.hash(newPassword, 10);
                     await userModel.findOneAndUpdate({'globalID': globalID}, {'password':newHashedPassword});
-                    res.status(200).send({ message: 'Password was updated successfully' });
+                    res.status(200).json({ 
+                        "message": 'Password was updated successfully',
+                         "info":userLogin});
                 } else {
                     res.status(404).json({ message: 'Wrong password' });
                 }
@@ -99,27 +102,30 @@ class UserController {
         }
     };
 
-    //Get all users from mongo db
+    //Gets all users from mongo db
     getAllUsers = async(req, res) => {
         const users = await userModel.find();
         res.json(users);
     };
 
-    //Get a user by Id from mongo db
+    //Gets a user by Id from mongo db
     getUserById = async (req, res) => {
         const globalID = req.params.id;
         const user = await userModel.findOne({'globalID': globalID}).populate(
         'personalInfo', {
-            firstName:1,
-            lastName:1,
-            city:1,
-            country:1,
-            age:1,
-            description:1,
-            createdAt:1,
-            updatedAt:1
+                firstName:1,
+                lastName:1,
+                city:1,
+                country:1,
+                age:1,
+                description:1,
+                createdAt:1,
+                updatedAt:1
         }).populate(
-            'role',{role:1});
+            'role',{
+                role:1,
+                description:1
+            });
         if (!user) {
             res.status(404).json({ message: 'User not found' });
         } else {
@@ -127,29 +133,35 @@ class UserController {
         }
     };
 
-    //Update an user by Id
+    //Updates a user's info by Id
     updateUser = async (req, res) => {
-        const globalID  = req.params;
-        const user = await userModel.findOneAndUpdate(globalID, req.body);
+        const globalID = req.params.id;
+        const newInfo = req.body;
+        const user = await userModel.findOne({'globalID': globalID});
         if (!user) {
             res.status(404).json({ message: 'user not found' });
         } else {
-            res.status(200).send('User was updated successfully');
+            user.phone = newInfo.phone || user.phone;
+            user.city = newInfo.email || user.email;
+            await user.save();
+            res.json({"message":`User ${user.userName} info updated successfully`,
+                        "info": user});
+            
         }
     };
 
-    //Delete an user by Id from mongo db
+    //Deletes a user by Id from mongo db
     deleteUserById = async (req, res) => {
         const globalID  = req.params;
         const user = await userModel.findOneAndDelete(globalID);
         if (!user) {
             res.status(404).json({ message: 'user not found' });
         } else {
-            res.send('User was delete successfully');
+            res.json({"message":'User was deleted successfully'});
         }
     };
 
-    //Assign a role to user by Id
+    //Assigns a role to user by Id
     assignRoleToUser = async (req, res) => {
         const globalID  = req.params.id;
         const newRole = req.body.role;
@@ -161,19 +173,21 @@ class UserController {
             await userModel.findOneAndUpdate({'globalID': globalID}, {$push:{role:role}});
             res.json({
                 "message":`User ${user.userName} updated with a role successfully`,
+                "info":user
                 });
         }
     };
 
-    //Remove role to user by Id
+    //Removes the user's role by Id
     removeRoleToUser = async (req, res) => {
         const globalID = req.params.id;
-        const {role} = req.body;
-        const user = await userModel.findOneAndUpdate(globalID, {$pull:{role:role}});
+        const user = await userModel.findOne({'globalID': globalID});
         if (!user) {
             res.status(404).json({ message: 'user not found' });
         } else {
-            res.send(`The role for ${user.userName} was removed successfully`);
+            user.role=undefined;
+            user.save();
+            res.json({"message":`The role for ${user.userName} was removed successfully`});
         }
     };
 }

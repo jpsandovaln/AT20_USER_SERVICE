@@ -14,12 +14,12 @@ const personalInfoModel = require('../models/PersonalInfoModel.js');
 const userModel = require('../models/UserModel.js');
 
 class PersonalInfoController {
+    //Gets all the info documents
     getAllInfo = async(req, res) => {
         const roles = await personalInfoModel.find();
         res.json(roles);
     };
-
-
+    //Adds personal info to a user by it's Id
     addPersonalInfo = async (req, res) => {
         const globalID  = req.params.id;
         const info = req.body;
@@ -28,11 +28,13 @@ class PersonalInfoController {
             res.status(404).json({ message: 'user not found' });
         } else {
             const newInfo = await personalInfoModel.create(info);
-            const updatedUser = await userModel.findOneAndUpdate({'globalID': globalID}, {$push:{personalInfo:newInfo}});//{$push:{description:newDescription}}
-            res.json({'message':`User ${updatedUser.userName} info updated successfully`});
+            const updatedUser = await userModel.findOneAndUpdate({'globalID': globalID}, {$push:{personalInfo:newInfo}});
+            res.json({'message':`User ${updatedUser.userName} info updated successfully`,
+                        "info":updatedUser
+                    });
         }
     };
-
+    //Updates the user with a personal info docuemnt
     updatePersonalInfo = async (req, res) => {
         const globalID = req.params.id;
         const newInfo = req.body;
@@ -47,11 +49,14 @@ class PersonalInfoController {
             personalInfo.age = newInfo.age || personalInfo.age;
             personalInfo.description = newInfo.description || personalInfo.description;
             await personalInfo.save();
-            //res.json({"message":`User ${user.userName} info updated successfully`} );
-            res.json(personalInfo);
+            await user.save();
+            res.json({"message":`User ${user.userName} personal info updated successfully`,
+                        "info": user
+                    });
+            
         }
     };
-
+    //Removes the user's personal info document
     removePersonalInfo = async (req, res) => {
         const globalID  = req.params.id;
         const user = await userModel.findOne({'globalID': globalID});
@@ -60,10 +65,8 @@ class PersonalInfoController {
         } else {
             user.personalInfo = undefined;
             await user.save();
-            res.send(`The personal info for ${user.userName} was removed successfully`);
+            res.json({"message":`The personal info for ${user.userName} was removed successfully`});
         }
     };
 }
-
-
 module.exports = PersonalInfoController;
