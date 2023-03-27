@@ -9,7 +9,8 @@
 
 # production
 /build
-
+# logger 
+src/logs/
 # misc
 .env.local
 .env.development.local

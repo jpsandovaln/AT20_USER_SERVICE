@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@UserRoute.js
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -9,15 +9,25 @@ disclose such Confidential Information and shall use it only in
 accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const UserController = require('../controllers/user_controller');
+const UserController = require('../controllers/UserController');
 const userController = new UserController();
 
 //Endpoint to create an user
 router.post(
-    '/users',
-    userController.insertUser
+    '/register',
+    userController.registerUser
+);
+
+router.post(
+    '/login',
+    userController.login
+);
+
+router.put(
+    '/updatePassword/:id',
+    userController.updatePassword
 );
 
 // Endpoint to read all users
@@ -31,7 +41,7 @@ router.get(
     '/users/:id',
     userController.getUserById
 );
- //Endpoint to update an user by ID
+//Endpoint to update an user by ID
 router.put(
     '/users/:id',
     userController.updateUser

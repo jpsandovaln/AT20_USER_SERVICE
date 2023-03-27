@@ -1,5 +1,5 @@
 /*
-@node_command.js
+@UserModeljs
 Copyright ( 2021 Jalasoft 2643 Av Melchor Perez de Olguin Colquiri Sud, Cochabamba, Bolivia.
 Av. General Inofuentes esquina Calle 20,Edificio Union № 1376, La Paz, Bolivia
 All rights reserved
@@ -13,19 +13,34 @@ const mongoose = require('mongoose');
 //Create user schema
 const userSchema = new mongoose.Schema (
     {
-        id: { 
-            type: Number,
-        },
-        name:{
+        globalID: {
             type: String,
-        },  
-        roles:{
-            type: [mongoose.Schema.Types.ObjectId],
-            ref: 'rol'
+            unique: true
+        },
+        userName:{
+            type: String,
+            unique: true
+        },
+        phone: {
+            type: Number,
         },
         email:{
             type: String,
             unique: true
+        },
+        firstPassword: {
+            type: String,
+        },
+        password: {
+            type: String,
+        },
+        role:{
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'role'
+        },
+        personalInfo:{
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'personalInfo'
         }
     },
     {
