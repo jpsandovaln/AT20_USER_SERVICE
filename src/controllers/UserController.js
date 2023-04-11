@@ -23,6 +23,7 @@ class UserController {
         const userLastName = newUser.lastName;
         const userPhone = newUser.phone;
         const userEmail = newUser.email;
+        const userImage = newUser.image;
         const newPassword = newUser.password;
         const newUserName = `${userName}.${userLastName}`;
         const userNameSearch = await userModel.findOne({'userName': newUserName});
@@ -33,6 +34,7 @@ class UserController {
             user.userName = newUserName;
             user.email = userEmail;
             user.phone = userPhone;
+            user.image = userImage;
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             user.firstPassword = hashedPassword;
             user.password = '';
@@ -92,7 +94,7 @@ class UserController {
                 if (await bcrypt.compare(userPassword, userLogin.password)) {
                     const newHashedPassword = await bcrypt.hash(newPassword, 10);
                     await userModel.findOneAndUpdate({'globalID': globalID}, {'password':newHashedPassword});
-                    res.status(200).json({ 
+                    res.status(200).json({
                         "message": 'Password was updated successfully',
                          "info":userLogin});
                 } else {
@@ -146,7 +148,7 @@ class UserController {
             await user.save();
             res.json({"message":`User ${user.userName} info updated successfully`,
                         "info": user});
-            
+
         }
     };
 
