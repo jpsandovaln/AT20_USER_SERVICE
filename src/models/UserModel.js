@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema (
         password: {
             type: String,
         },
+        image: {
+            type: String,
+        },
+
         role:{
             type: [mongoose.Schema.Types.ObjectId],
             ref: 'role'

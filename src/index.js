@@ -10,6 +10,7 @@ accordance with the terms of the license agreement you entered into
 with Jalasoft
 */
 const express = require('express');
+const cors = require ('cors');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/UserRoute');
 const roleRouter = require('./routes/RoleRoute');
@@ -20,6 +21,7 @@ const loggerService = require('../loggerService.js');
 
 const app = express();
 dotenv.config();
+app.use(cors());
 
 app.get('/api/v1/', (req, res) => {
     res.send('hello from home');
