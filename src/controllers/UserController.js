@@ -24,6 +24,7 @@ class UserController {
         const userPhone = newUser.phone;
         const userEmail = newUser.email;
         const userImage = newUser.image;
+        const userRol = newUser.rol;
         const newPassword = newUser.password;
         const newUserName = `${userName}.${userLastName}`;
         const userNameSearch = await userModel.findOne({'userName': newUserName});
@@ -35,6 +36,8 @@ class UserController {
             user.email = userEmail;
             user.phone = userPhone;
             user.image = userImage;
+            const role = await roleModel.findOne({'role': userRol});
+            user.role = role;
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             user.firstPassword = hashedPassword;
             user.password = '';
